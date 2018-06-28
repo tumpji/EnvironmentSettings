@@ -32,8 +32,9 @@ function backup {
 
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
         echo "  input : $input_file    output: $output_path"
-        cp "${input_file}" "${output_path}"
+        cp -r "${input_file}" "${output_path}"
     done
+
     git add backup/*
     git status
     git commit -m "backub add"
