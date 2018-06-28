@@ -96,8 +96,10 @@ nmap <Leader>n <Plug>(easymotion-bd-n)
 highlight link Flake8_Error Error
 autocmd BufWritePost *.py call Flake8()
 let g:flake8_show_quickfix=1
-
-
+""""""""""""""""""""""""""""""""
+" autopep8
+let g:autopep8_disable_show_diff=1
+let g:autopep8_on_save = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -135,8 +137,9 @@ set showmatch
 " search when not pressed enter yet
 set incsearch
 
-
+" autoindent - copy indent from current line when starting new
 set autoindent
+" copy structure of indent when autoindenting (spaces/tabs when not expandtab)
 set copyindent
 
 " ignore file when search for autocomplete etc
@@ -170,3 +173,12 @@ highlight link SyntasticError SpellBad
 highlight link SyntasticWarning SpellCap   
 hi SpellBad ctermfg=white ctermbg=red    cterm=bold
 hi SpellCap ctermfg=black ctermbg=yellow cterm=bold
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""
+" automatic headers
+" <when> <what file> <command>
+" python
+autocmd BufNewFile *.py source /home/tumpji/.vim/templates/python3.py
+autocmd BufNewFile *.py execute ":%s/%file%/" . expand('%:t') . "/"
+autocmd BufNewFile *.py execute ":%s/%date%/" . strftime('%Y %m. %d.') . "/"
