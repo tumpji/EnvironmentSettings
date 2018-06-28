@@ -6,7 +6,8 @@ backup_folder="backup"
 
 # list of cached/installed files
 files=(\
-    ~/.vimrc vimrc
+    ~/.vimrc           vimrc\
+    ~/.vim/templates   templates\
     )
 
 
@@ -21,7 +22,7 @@ files_num=${#files[*]}
 
 # create new backup based on date and time
 function backup {
-    rm "${backup_folder}/*" 
+    rm -R "${backup_folder}/*"  2>&/dev/null
 
     for index in `seq 0 2 $(("$files_num"-1))`
     do
@@ -30,11 +31,11 @@ function backup {
         output_path="${backup_folder}/${output_file}"
 
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
-        echo "  input : $input_file"
-        echo "  output: $output_path"
+        echo "  input : $input_file    output: $output_path"
         cp "${input_file}" "${output_path}"
     done
     git add backup/*
+    git status
     git commit -m "backub add"
     git push origin master
 }
