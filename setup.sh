@@ -22,7 +22,6 @@ files_num=${#files[*]}
 
 # create new backup based on date and time
 function backup {
-    rm -R "${backup_folder}/*"  2>&/dev/null
 
     for index in `seq 0 2 $(("$files_num"-1))`
     do
@@ -32,7 +31,8 @@ function backup {
 
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
         echo "  input : $input_file    output: $output_path"
-        cp -r "${input_file}" "${output_path}"
+        #cp -ru "${input_file}" "${output_path}"
+        rsync -a --delete "${input_file}" "${output_path}"
     done
 
     git add backup/*
@@ -40,12 +40,11 @@ function backup {
 
     select result in Yes No
     do
-        echo $result
         case "${result}" in
         Yes)
-        git commit -m "backub add"
-        git push
-        break
+            git commit -m "backub add"
+            git push
+            break
             ;;
         No)
             echo "Cancel ..."
@@ -53,9 +52,7 @@ function backup {
             break
             ;;
         esac
-
     done
-
 }
 
 # restore backup based on index
@@ -69,7 +66,7 @@ function restore {
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
         echo "  input : $input_file"
         echo "  output: $output_path"
-        cp "${output_path}" "${input_file}"
+        rsync -a "${output_path}" "${input_file}"
     done
 }
 
