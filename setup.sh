@@ -7,7 +7,7 @@ backup_folder="backup"
 # list of cached/installed files
 files=(\
     ~/.vimrc           vimrc\
-    ~/.vim/templates   templates\
+    ~/.vim/templates   ""\
     )
 
 
@@ -30,7 +30,7 @@ function backup {
         output_path="${backup_folder}/${output_file}"
 
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
-        echo "  input : $input_file    output: $output_path"
+        echo "  $input_file  ->   $output_path"
         #cp -ru "${input_file}" "${output_path}"
         rsync -a --delete "${input_file}" "${output_path}"
     done
@@ -64,8 +64,7 @@ function restore {
         output_path="${backup_folder}/${output_file}"
 
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
-        echo "  input : $input_file"
-        echo "  output: $output_path"
+        echo "  $input_file ->  $output_path"
         rsync -a "${output_path}" "${input_file}"
     done
 }
