@@ -37,8 +37,25 @@ function backup {
 
     git add backup/*
     git status
-    git commit -m "backub add"
-    git push origin master
+
+    select result in Yes No
+    do
+        echo $result
+        case "${result}" in
+        Yes)
+        git commit -m "backub add"
+        git push
+        break
+            ;;
+        No)
+            echo "Cancel ..."
+            git reset
+            break
+            ;;
+        esac
+
+    done
+
 }
 
 # restore backup based on index
