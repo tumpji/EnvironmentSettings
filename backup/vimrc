@@ -179,6 +179,6 @@ hi SpellCap ctermfg=black ctermbg=yellow cterm=bold
 " automatic headers
 " <when> <what file> <command>
 " python
-autocmd BufNewFile *.py source /home/tumpji/.vim/templates/python3.py
+autocmd BufNewFile *.py source /home/tumpji/.vim/templates/python3.txt
 autocmd BufNewFile *.py execute ":%s/%file%/" . expand('%:t') . "/"
 autocmd BufNewFile *.py execute ":%s/%date%/" . strftime('%Y %m. %d.') . "/"

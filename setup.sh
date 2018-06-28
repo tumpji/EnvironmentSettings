@@ -5,9 +5,12 @@
 backup_folder="backup"
 
 # list of cached/installed files
+# format ::= <source> <destination/name after arch> <type>
+# <type> ::= Folder|File
+# !! beware '/' when backing up folders !!
 files=(\
-    ~/.vimrc           vimrc\
-    ~/.vim/templates   ""\
+    ~/.vimrc           vimrc        File\
+    ~/.vim/templates/  templates/   Folder\
     )
 
 
@@ -23,7 +26,7 @@ files_num=${#files[*]}
 # create new backup based on date and time
 function backup {
 
-    for index in `seq 0 2 $(("$files_num"-1))`
+    for index in `seq 0 3 $(("$files_num"-1))`
     do
         input_file=${files[index]}
         output_file=${files["$(("$index"+1))"]}
@@ -31,8 +34,8 @@ function backup {
 
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
         echo "  $input_file  ->   $output_path"
-        #cp -ru "${input_file}" "${output_path}"
-        rsync -a --delete "${input_file}" "${output_path}"
+
+        rsync -a "${input_file}" "${output_path}"
     done
 
     git add backup/*
@@ -57,7 +60,9 @@ function backup {
 
 # restore backup based on index
 function restore {
-    for index in `seq 0 2 $(("$files_num"-1))`
+    mkdir -p backup/template
+
+    for index in `seq 0 3 $(("$files_num"-1))`
     do
         input_file=${files[index]}
         output_file=${files["$(("$index"+1))"]}
