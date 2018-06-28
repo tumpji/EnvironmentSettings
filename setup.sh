@@ -41,6 +41,7 @@ function backup {
     git add backup/*
     git status
 
+    echo "Correct?"
     select result in Yes No
     do
         case "${result}" in

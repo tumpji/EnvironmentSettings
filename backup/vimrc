@@ -179,6 +179,14 @@ hi SpellCap ctermfg=black ctermbg=yellow cterm=bold
 " automatic headers
 " <when> <what file> <command>
 " python
-autocmd BufNewFile *.py source /home/tumpji/.vim/templates/python3.txt
-autocmd BufNewFile *.py execute ":%s/%file%/" . expand('%:t') . "/"
-autocmd BufNewFile *.py execute ":%s/%date%/" . strftime('%Y %m. %d.') . "/"
+autocmd BufNewFile *.py   .-1read ~/.vim/templates/all.txt |
+                        \ .-1read ~/.vim/templates/python3.txt
+autocmd BufNewFile main.cpp 
+                        \ 0read ~/.vim/templates/all.txt |
+                        \ execute ":%s:#://:g" |
+                        \ read ~/.vim/templates/main_cpp.txt
+
+" replace some %file% %date% and go to end of file
+autocmd BufNewFile *    silent! execute ":%s/%file%/" . expand('%:t') . "/"           |
+                      \ silent! execute ":%s/%date%/" . strftime('%Y %m. %d.') . "/"  |
+                      \ normal G
