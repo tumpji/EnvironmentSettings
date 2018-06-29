@@ -10,6 +10,7 @@ backup_folder="backup"
 # !! beware '/' when backing up folders !!
 files=(\
     ~/.vimrc           vimrc        File\
+    ~/.tmux.conf       tmux.conf    File\
     ~/.vim/templates/  templates/   Folder\
     )
 
