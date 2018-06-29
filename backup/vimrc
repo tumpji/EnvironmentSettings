@@ -181,7 +181,7 @@ hi SpellCap ctermfg=black ctermbg=yellow cterm=bold
 " python
 autocmd BufNewFile *.py   .-1read ~/.vim/templates/all.txt |
                         \ .-1read ~/.vim/templates/python3.txt
-autocmd BufNewFile main.cpp 
+autocmd BufNewFile main.\(cpp\|cc\)
                         \ 0read ~/.vim/templates/all.txt |
                         \ execute ":%s:#://:g" |
                         \ read ~/.vim/templates/main_cpp.txt
@@ -190,3 +190,25 @@ autocmd BufNewFile main.cpp
 autocmd BufNewFile *    silent! execute ":%s/%file%/" . expand('%:t') . "/"           |
                       \ silent! execute ":%s/%date%/" . strftime('%Y %m. %d.') . "/"  |
                       \ normal G
+
+" insert at the beggining of file coment string with
+function WriteHeader(...)
+    let length_before=line('$')
+    0read ~/.vim/templates/all.txt
+    let length_after=line('$')
+    let length_diff=length_after-length_before
+    let string_diff='0,' . length_diff 
+
+    " change 
+    silent! execute string_diff . "s/%file%/" . expand('%:t') . "/"           |
+    silent! execute string_diff . "s/%date%/" . strftime('%Y %m.%d.') . "/"  |
+
+    if a:0 != '0'
+        silent! execute string_diff . "s:#:" . a:1 . ":"
+    elseif expand('%') =~ ".*\\.\\(cpp\\|cc\\)$"
+        silent! execute string_diff . "s:#:" . '\\\\' . ":"
+    endif
+
+endfunction
+
+command! -nargs=? WriteHeader call WriteHeader(<args>)
