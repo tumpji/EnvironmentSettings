@@ -177,19 +177,6 @@ hi SpellCap ctermfg=black ctermbg=yellow cterm=bold
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " automatic headers
-" <when> <what file> <command>
-" python
-autocmd BufNewFile *.py   .-1read ~/.vim/templates/all.txt |
-                        \ .-1read ~/.vim/templates/python3.txt
-autocmd BufNewFile main.\(cpp\|cc\)
-                        \ 0read ~/.vim/templates/all.txt |
-                        \ execute ":%s:#://:g" |
-                        \ read ~/.vim/templates/main_cpp.txt
-
-" replace some %file% %date% and go to end of file
-autocmd BufNewFile *    silent! execute ":%s/%file%/" . expand('%:t') . "/"           |
-                      \ silent! execute ":%s/%date%/" . strftime('%Y %m. %d.') . "/"  |
-                      \ normal G
 
 " insert at the beggining of file coment string with
 function WriteHeader(...)
@@ -199,16 +186,32 @@ function WriteHeader(...)
     let length_diff=length_after-length_before
     let string_diff='0,' . length_diff 
 
-    " change 
+    " change predefined patterns to current variables
     silent! execute string_diff . "s/%file%/" . expand('%:t') . "/"           |
     silent! execute string_diff . "s/%date%/" . strftime('%Y %m.%d.') . "/"  |
 
+    " argument with comment prefix is supplied 
     if a:0 != '0'
         silent! execute string_diff . "s:#:" . a:1 . ":"
+    " default argument it is detected C++ language
     elseif expand('%') =~ ".*\\.\\(cpp\\|cc\\)$"
-        silent! execute string_diff . "s:#:" . '\\\\' . ":"
+        silent! execute string_diff . "s:^#:" . '//' . ":"
     endif
-
 endfunction
 
 command! -nargs=? WriteHeader call WriteHeader(<args>)
+
+
+" <when> <what file> <command>
+" python
+autocmd BufNewFile *.py   call WriteHeader() |
+                        \ 0read ~/.vim/templates/python3.txt 
+
+autocmd BufNewFile main.\(cpp\|cc\)
+                        \ 0read ~/.vim/templates/main_cpp.txt
+autocmd BufNewFile *.\(cpp\|cc\)
+                        \ call WriteHeader() 
+
+" go to end 
+autocmd BufNewFile *  normal G
+
