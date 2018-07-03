@@ -211,9 +211,9 @@ autocmd BufNewFile main.\(cpp\|cc\)
                         \ 0read ~/.vim/templates/main_cpp.txt
 autocmd BufNewFile *.\(cpp\|cc\)
                         \ call WriteHeader() 
-autocmd BufNewFile *.bs 
+autocmd BufNewFile *.sh 
                         \ call WriteHeader() |
-                        \ 0read ~/.vim/templates/bs.txt
+                        \ 0read ~/.vim/templates/sh.txt
 
 
 " go to end 
