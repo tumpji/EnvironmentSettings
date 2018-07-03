@@ -211,6 +211,10 @@ autocmd BufNewFile main.\(cpp\|cc\)
                         \ 0read ~/.vim/templates/main_cpp.txt
 autocmd BufNewFile *.\(cpp\|cc\)
                         \ call WriteHeader() 
+autocmd BufNewFile *.bs 
+                        \ call WriteHeader() |
+                        \ 0read ~/.vim/templates/bs.txt
+
 
 " go to end 
 autocmd BufNewFile *  normal G
