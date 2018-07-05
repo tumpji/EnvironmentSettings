@@ -2,18 +2,18 @@
 # UTF-8
 # =============================================================================
 #         FILE: autocompile.sh
-#  DESCRIPTION:
-#        USAGE:
-#      OPTIONS:
-# REQUIREMENTS:
+#  DESCRIPTION: This script test files in "tested_files" if they changed. 
+#               If yes then it calls your part of code (make, other script, ...)
+#        USAGE: Just start it
+#      OPTIONS: Nothing
+# REQUIREMENTS: bash
 #
 #      LICENCE:
 #
 #         BUGS:
-#        NOTES:
+#        NOTES: This version is premade to act as a latex autocompiler
 #       AUTHOR: Jiří Tumpach (tumpji),
-# ORGANIZATION:
-#      VERSION: 1.0
+#      VERSION: 1.0.1
 #      CREATED: 2018 07.03.
 # =============================================================================
 
@@ -25,7 +25,7 @@ tested_files=('./chap01.tex' './thesis.tex' './bibliography.bib' './bibliography
 wait_option=(1 2 3 3 3 3 4 5 6 7 8 9 10)
 wait_index=0
 wait_ticks=0
-wait_minutes_change=1
+wait_minutes_change=2
 
 # last modification time (initial 0)
 last_mod=( $(for i in ${tested_files[*]}; do echo 0; done) )
@@ -70,7 +70,9 @@ do
         # reset schedule to most active one
         wait_index=0
         wait_ticks=0
-        # recompile
+
+
+        # recompile (you can change it as you like)
         make 0<&-
 
         if [ $? ]
