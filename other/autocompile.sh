@@ -13,23 +13,22 @@
 #         BUGS:
 #        NOTES: This version is premade to act as a latex autocompiler.
 #       AUTHOR: Jiří Tumpach (tumpji),
-#      VERSION: 1.0.1
+#      VERSION: 1.1.0
 #      CREATED: 2018 07.03.
 # =============================================================================
-
 
 tested_files=('./chap01.tex' './thesis.tex' './bibliography.bib' './bibliography.tex')
 
 # time delay every check (array in case of not acting for $wait_minutes_change) it wil 
 # inc wait_index to maximum of #wait_option-1
-wait_option=(1 2 3 3 3 3 4 5 6 7 8 9 10)
+wait_option=(1 1 1 2 2 3 4 5 6 7 8 9 10)
 wait_index=0
 wait_ticks=0
-wait_minutes_change=2
+wait_minutes_change=3
 
 # last modification time (initial 0)
 last_mod=( $(for i in ${tested_files[*]}; do echo 0; done) )
-# precomputed tick per switch to different control schedule
+# precomputed tick per switch to different controll schedule
 precomputed_wait_time_ticks=( $(for i in ${wait_option[*]}; 
     do echo $(($wait_minutes_change*60/$i)); done) )
 
@@ -52,17 +51,15 @@ do
         fi
     done
 
-    if [ $act_change == no -a $wait_index -ne ${#wait_option[*]} ]
+    if [ $act_change == no -a $(($wait_index+1)) -ne ${#wait_option[*]} ]
     then
         # inc timer
         wait_ticks=$(($wait_ticks+1))
-        echo "tick"
 
         # switch schedule
         if [ $wait_ticks -ge ${precomputed_wait_time_ticks[$wait_index]} ]
         then
             wait_index=$((wait_index+1))
-            echo "Changing time schedule to $wait_index]"
             wait_ticks=0
         fi
     elif [ $act_change == yes ]
