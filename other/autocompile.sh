@@ -2,16 +2,16 @@
 # UTF-8
 # =============================================================================
 #         FILE: autocompile.sh
-#  DESCRIPTION: This script test files in "tested_files" if they changed. 
+#  DESCRIPTION: This script tests files in "tested_files" if they are changed. 
 #               If yes then it calls your part of code (make, other script, ...)
-#        USAGE: Just start it
+#        USAGE: Just start it.
 #      OPTIONS: Nothing
 # REQUIREMENTS: bash
 #
 #      LICENCE:
 #
 #         BUGS:
-#        NOTES: This version is premade to act as a latex autocompiler
+#        NOTES: This version is premade to act as a latex autocompiler.
 #       AUTHOR: Jiří Tumpach (tumpji),
 #      VERSION: 1.0.1
 #      CREATED: 2018 07.03.
@@ -29,7 +29,7 @@ wait_minutes_change=2
 
 # last modification time (initial 0)
 last_mod=( $(for i in ${tested_files[*]}; do echo 0; done) )
-# precomputed tick per switch to different controll schedule
+# precomputed tick per switch to different control schedule
 precomputed_wait_time_ticks=( $(for i in ${wait_option[*]}; 
     do echo $(($wait_minutes_change*60/$i)); done) )
 
