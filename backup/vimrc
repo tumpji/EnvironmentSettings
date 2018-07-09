@@ -114,6 +114,16 @@ color dracula "or desert
 " set system main clipboard as default
 set clipboard=unnamedplus
 
+" enable mouse
+set mouse=a
+
+" remove mapping <- ...
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+
+
 " change search highlighting
 "hi Search ctermbg=white ctermfg=red cterm=bold
 
