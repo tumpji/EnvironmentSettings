@@ -184,6 +184,9 @@ highlight link SyntasticWarning SpellCap
 hi SpellBad ctermfg=white ctermbg=red    cterm=bold
 hi SpellCap ctermfg=black ctermbg=yellow cterm=bold
 
+""""""""""""""""""""""""""""""""""""""""""""""""
+" latex folding
+autocmd BufReadPost *.tex set foldmethod=indent
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " automatic headers
