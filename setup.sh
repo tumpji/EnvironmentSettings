@@ -12,6 +12,7 @@ files=(\
     ~/.vimrc           vimrc        File\
     ~/.tmux.conf       tmux.conf    File\
     ~/.vim/templates/  templates/   Folder\
+    ~/.ssh/config      git-config   File\
     )
 
 
