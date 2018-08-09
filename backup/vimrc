@@ -115,13 +115,13 @@ color dracula "or desert
 set clipboard=unnamedplus
 
 " enable mouse
-set mouse=a
+"set mouse=a
 
 " remove mapping <- ...
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
+"noremap <Up> <nop>
+"noremap <Down> <nop>
+"noremap <Left> <nop>
+"noremap <Right> <nop>
 
 
 " change search highlighting
