@@ -65,10 +65,10 @@ function backup {
 function restore {
     mkdir -p backup/template
 
-    for index in `seq 0 3 $(("$files_num"-1))`
+    for index in `seq 0 3 $(($files_num-1))`
     do
         input_file=${files[index]}
-        output_file=${files["$(("$index"+1))"]}
+        output_file=${files["$(($index+1))"]}
         output_path="${backup_folder}/${output_file}"
 
         echo "File $((${index}/2+1)) out of $((${files_num}/2))"
